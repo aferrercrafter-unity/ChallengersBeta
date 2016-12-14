@@ -8,7 +8,8 @@ public class Skills : MonoBehaviour {
     public float teleportTimer = 0;
     public ParticleSystem teleportEffect;
     public Text teleportCooldText;
-    public GameObject teleporMask;
+    //public GameObject teleporMask;
+    public Image teleportMask;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,7 @@ public class Skills : MonoBehaviour {
         {            
             if(teleportTimer <= 0)
             {
-                teleporMask.SetActive(true);
+                teleportMask.fillAmount = 1.0f;
                 teleportTimer = teleportCooldown;
                 transform.position = transform.position += transform.forward*3;
                 teleportEffect.Simulate(1);
@@ -34,11 +35,12 @@ public class Skills : MonoBehaviour {
         if(teleportTimer > 0)
         {
             teleportCooldText.text = ((int)teleportTimer).ToString();
+            teleportMask.fillAmount = teleportTimer / teleportCooldown;
         }
-        else if(teleportTimer <= 0 && teleporMask.activeInHierarchy)
+        else if(teleportTimer <= 0)
         {
             teleportCooldText.text = "";
-            teleporMask.SetActive(false);
+            teleportMask.fillAmount = 0;
         }
 
 
