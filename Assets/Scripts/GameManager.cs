@@ -2,9 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     //Scene info
+    public int wave_time;
 
     //Unity Prefabs
     public GameObject skeleton;
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour {
 
     //Scene counters
     bool timerOn;
-    float timer = 30;
+    float timer;
     int level = 1;
 
     //States
@@ -34,29 +36,31 @@ public class GameManager : MonoBehaviour {
     bool lose_state = true;
 
     //Enemy spawn points
-    public Transform[] spawnPositions;  
+    public Transform[] spawnPositions;
 
     // Use this for initialization
-    void Start () {        
-
+    void Start()
+    {
+        timer = wave_time;
         Spawn();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         timer -= Time.deltaTime;
         timerLabel.text = ((int)timer).ToString();
 
-        if(timer <= 0 && !win_state)
+        if (timer <= 0 && !win_state)
         {
             Win();
         }
-	}    
+    }
 
     public void Lost()
     {
         Time.timeScale = 0;
-        level--;  
+        level--;
         title.text = "You Lose!";
         subtitle.text = "Good Day Sir!";
         SetUIScore(false);
@@ -67,7 +71,7 @@ public class GameManager : MonoBehaviour {
     public void Win()
     {
         win_state = true;
-        Time.timeScale = 0;        
+        Time.timeScale = 0;
         title.text = "You Win!";
         subtitle.text = "Get ready for level " + level + " !";
         SetUIScore(true);
@@ -82,34 +86,34 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1;
         MessagePanel.SetActive(false);
         mask.SetActive(false);
-        timer = 30;
+        timer = wave_time;
         Spawn();
-    }    
+    }
 
     public void SetUIScore(bool win)
-    {   
-        if(win)     
-            totalTime.text = "Total time: " + (((level - 1) * 30) + (30 - (int)timer)) + " sec";
+    {
+        if (win)
+            totalTime.text = "Total time: " + (((level - 1) * wave_time) + (wave_time - (int)timer)) + " sec";
         else
-            totalTime.text = "Total time: " + (30 - (int)timer) + " sec";
+            totalTime.text = "Total time: " + (wave_time - (int)timer) + " sec";
         totalLevel.text = "Levels passed: " + level;
     }
 
     void Spawn()
     {
-        /*
+
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(enemy);
         }
-        */
-        if(level <= 4)
+
+        if (level <= 4)
         {
             for (int i = 0; i < level; i++)
             {
                 Instantiate(skeleton, spawnPositions[i].position, Quaternion.identity);
             }
-        }        
+        }
 
     }
 }
