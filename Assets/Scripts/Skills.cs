@@ -28,7 +28,7 @@ public class Skills : MonoBehaviour {
                 teleportMask.fillAmount = 1.0f;
                 teleportTimer = teleportCooldown;
                 transform.position = transform.position += transform.forward*3;
-                teleportEffect.Simulate(1);
+                teleportEffect.Play();
             }
         }
 
