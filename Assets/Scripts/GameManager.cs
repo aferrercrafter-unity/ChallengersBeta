@@ -101,12 +101,12 @@ public class GameManager : MonoBehaviour
 
     void Spawn()
     {
-
+        /*
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(enemy);
         }
-
+        */
         if (level <= 4)
         {
             for (int i = 0; i < level; i++)

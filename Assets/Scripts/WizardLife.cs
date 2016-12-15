@@ -16,8 +16,9 @@ public class WizardLife : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
+        print(col.gameObject.name);
         if (col.gameObject.CompareTag("EnemyWeapon"))
         {
             life--;
