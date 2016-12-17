@@ -8,6 +8,7 @@ public class Skills : MonoBehaviour {
     public float teleportTimer = 0;
     public ParticleSystem teleportEffect;
     public Text teleportCooldText;
+    public AudioClip teleportSound;
     //public GameObject teleporMask;
     public Image teleportMask;
 
@@ -29,7 +30,7 @@ public class Skills : MonoBehaviour {
                 teleportTimer = teleportCooldown;
                 transform.position = transform.position += transform.forward*3;
                 teleportEffect.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-
+                AudioSource.PlayClipAtPoint(teleportSound, transform.position);
                 teleportEffect.Play();
             }
         }
