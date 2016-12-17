@@ -33,7 +33,7 @@ public class SkeletonAI : MonoBehaviour
             anim.SetBool("IsAttacking", false);
             anim.SetBool("IsIdle", false);
             if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
-                transform.Translate(0, 0, speed * Time.deltaTime);
+                transform.Translate(0, 0, speed * Time.deltaTime * transform.localScale.x);
                 this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
             }
             

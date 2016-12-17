@@ -13,10 +13,13 @@ public class WizardLife : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
 
-    void OnCollisionEnter(Collision col)
+        if(transform.position.y < -1)
+            manager.SendMessage("Lost");
+
+    }
+
+    void OnTriggerEnter(Collider col)
     {
         print(col.gameObject.name);
         if (col.gameObject.CompareTag("EnemyWeapon"))
