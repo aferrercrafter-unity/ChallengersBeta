@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Time.timeScale = 0;
         player_start_pos = player.transform.position;
         timer = wave_time;
         Spawn();
@@ -51,6 +52,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {           
+            Application.Quit();
+        }
+
+
         timer -= Time.deltaTime;
         timerLabel.text = ((int)timer).ToString();
 
@@ -88,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        player.transform.position = player_start_pos;
+        player.transform.position = player_start_pos;        
         win_state = false;
         Time.timeScale = 1;
         MessagePanel.SetActive(false);
@@ -102,7 +110,7 @@ public class GameManager : MonoBehaviour
         if (win)
             totalTime.text = "Total time: " + (((level - 1) * wave_time) + (wave_time - (int)timer)) + " sec";
         else
-            totalTime.text = "Total time: " + (wave_time - (int)timer) + " sec";
+            totalTime.text = "Total time: " + (wave_time - (int)timer + level * wave_time) + " sec";
         totalLevel.text = "Levels passed: " + level;
     }
 
@@ -116,13 +124,10 @@ public class GameManager : MonoBehaviour
 
         int dif = (int)System.Math.Ceiling( (double)level/4);
         int minions = level - (dif - 1) * 4;
-
-        print(level);
-        print(dif);
-        print(minions);
-        
+                
         for (int i = 0; i < minions; i++)
         {
+            //Quaternion rot = Quaternion.
             var enemy = Instantiate(skeleton, spawnPositions[i].position, Quaternion.identity);
             enemy.transform.localScale = new Vector3(dif, dif, dif);
         }

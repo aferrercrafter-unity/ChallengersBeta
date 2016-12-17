@@ -27,18 +27,19 @@ public class SkeletonAI : MonoBehaviour
         direction.y = 0;
 
 
-        if (direction.magnitude > meleeRange)
+        if (direction.magnitude > meleeRange * transform.localScale.x)
         {
             anim.SetBool("IsWalking", true);
             anim.SetBool("IsAttacking", false);
             anim.SetBool("IsIdle", false);
             if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
                 transform.Translate(0, 0, speed * Time.deltaTime * transform.localScale.x);
-                this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+                if(Time.deltaTime > 0)
+                    this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
             }
             
         }
-        else if (direction.magnitude <= meleeRange)
+        else if (direction.magnitude <= meleeRange * transform.localScale.x)
         {
             anim.SetBool("IsWalking", false);
             anim.SetBool("IsAttacking", true);

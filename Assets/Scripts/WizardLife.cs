@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WizardLife : MonoBehaviour {
 
+    public bool invi = false;
     GameObject manager;
     int life = 1;
 
@@ -21,14 +22,17 @@ public class WizardLife : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        print(col.gameObject.name);
-        if (col.gameObject.CompareTag("EnemyWeapon"))
+        if (!invi)
         {
-            life--;
-            if(life <= 0)
+            if (col.gameObject.CompareTag("EnemyWeapon"))
             {
-                manager.SendMessage("Lost");
+                life--;
+                if (life <= 0)
+                {
+                    manager.SendMessage("Lost");
+                }
             }
         }
+        
     }
 }
